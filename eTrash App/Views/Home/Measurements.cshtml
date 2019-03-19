@@ -1,0 +1,105 @@
+﻿@{
+    ViewBag.Title = "Measurements";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+
+<script src="https://rawgit.com/wenzhixin/bootstrap-table/master/dist/bootstrap-table.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Measurements</h1>
+    </div>
+    <!-- /.col-lg-12 -->
+
+    <div class="row">
+        <div class="col-lg-4 col-md-6">
+            <div class="row" style="padding: 20px">
+                <div class="col-xs-3">
+                    <select onchange="showMeasurement()" class="selectpicker input-sm" id="sensorSelect">
+                        <option value="1">Bin 1</option>
+                        <option value="2">Bin 2</option>
+                        <option value="3">Bin 3</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="width: 100%; height: auto; padding: 20px;">
+        <table id="table" class="table-responsive table-striped table-bordered display" style="width: 100%; height: 100% "></table>
+
+    </div>
+
+
+
+    <script>
+
+        var user = JSON.parse(localStorage.getItem("User"));
+        // alert(JSON.stringify(user));
+        var sensors = JSON.parse(localStorage.getItem("Sensor"));
+        // alert(JSON.stringify(sensors));
+        function showMeasurement() {
+
+            var sensorSelect = document.getElementById('sensorSelect');
+            var selected = sensorSelect.options[sensorSelect.selectedIndex].value;
+            //alert(selected);
+
+
+            var settings = {
+                "async": true,
+                "url": "http://etrash.info/api/measurement/read.php",
+                "method": "POST",
+                "data": '{ "sid" :' + selected + '}'
+            }
+
+            $.ajax(settings).done(function (response) {
+                var mydata = response.records;
+                //alert(JSON.stringify(mydata));
+
+                // localStorage.setItem("level", JSON.stringify(response.records));
+                //alert(JSON.stringify(response));
+                //var ln = response.records.length;
+
+                $('#table').DataTable({
+                    destroy: true,
+                    data: mydata,
+                    columns: [
+
+                        { title: "Time", 'data': 'ts' },
+                        { title: "Level", 'data': 'fill_level' }
+                    ]
+                });
+
+            })
+
+            //   var mydata = JSON.parse(localStorage.getItem("level"));
+            // var $table = $('#table');
+
+            //alert(JSON.stringify(mydata));
+
+
+        }
+
+        showMeasurement();
+
+
+
+
+
+
+        //    $(".table-responsive").css('display', 'none');
+        //  $('#table').css('display', 'block');
+        /*
+        $(function() {
+$('#colorselector').change(function(){
+$('.colors').hide();
+$('#' + $(this).val()).show();
+});
+});
+*/
+    </script>
