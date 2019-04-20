@@ -1,5 +1,12 @@
 ﻿@model IEnumerable<eTrash_App.Models.Navbar>
 
+<script>
+    if (!sessionStorage.hasOwnProperty("id")) {
+        //   alert("error");
+        window.location.href = "/login/login";
+    }
+</script>
+
 <!-- Navigation -->
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
     <div class="navbar-header">
@@ -12,14 +19,14 @@
         @Html.ActionLink("eTrash App", "Index", new { controller = "Home" }, new { @class = "navbar-brand" })
     </div>
     <!-- /.navbar-header -->
-    
+
     <ul class="nav navbar-top-links navbar-right">
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                 <i class="fa fa-tasks fa-fw"></i>  <i class="fa fa-caret-down"></i>
             </a>
             <ul id="singleMeasurements" class="dropdown-menu dropdown-tasks">
-                
+
                 <!--li>
                     <a href="/home/measurements?bin&2">
                         <div>
@@ -67,7 +74,7 @@
                         </div>
                     </a>
                 </li-->
-               
+
             </ul>
             <!-- /.dropdown-tasks -->
         </li>
@@ -171,7 +178,7 @@
                 <li>
                     <a href="/home"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                 </li>
-               
+
                 <li>
                     <a href="/home/measurements"><i class="fa fa-tasks fa-fw"></i> Measurements</a>
                 </li>
@@ -187,20 +194,19 @@
                 <li>
                     <a href="/home/feedback"><i class="fa fa-comment fa-fw"></i> Give Feedback!</a>
                 </li>
-        <!-- /.sidebar-collapse -->
-    </div>
-    <!-- /.navbar-static-side -->
+                <!-- /.sidebar-collapse -->
+        </div>
+        <!-- /.navbar-static-side -->
 </nav>
 <script>
-    var user = JSON.parse(localStorage.getItem("User"));
-    $('#nav-name').html(user.name);
+    $('#nav-name').html(sessionStorage['name']);
     //var data2 = { uid: "1" };
 
     var settings = {
         "async": true,
         "url": "http://etrash.info/api/sensor/read.php",
         "method": "POST",
-        "data": '{ "uid" :'+user.uid+'}'
+        "data": '{ "uid" :' + sessionStorage['uid'] + '}'
     }
 
     $.ajax(settings).done(function (response) {
@@ -208,7 +214,7 @@
         //var sensor = response;
         localStorage.setItem("Sensor", JSON.stringify(response));
     });
-   </script>         
+</script>
 
 
 
@@ -217,7 +223,7 @@
         "async": true,
         "url": "http://etrash.info/api/sensor/read.php",
         "method": "POST",
-        "data": '{ "uid" :' + user.uid + '}'
+        "data": '{ "uid" :' + sessionStorage['uid'] + '}'
     }
 
     $.ajax(settings).done(function (response) {
@@ -234,7 +240,7 @@
     }
 
     $.ajax(settings).done(function (response) {
-     //   alert(JSON.stringify(response));
+        //   alert(JSON.stringify(response));
         var singleMeasure = response;
 
         //var sensor = response;
@@ -242,7 +248,7 @@
         var sens = singleMeasure.records;
         for (var i = 0; i < singleMeasure.records.length; i++) {
 
-          //  alert(JSON.stringify(sens[i]['fill_level']));
+            //  alert(JSON.stringify(sens[i]['fill_level']));
 
 
             $('#singleMeasurements').append(
@@ -265,29 +271,29 @@
           '  </li>' +
           '  <li class="divider"></li> ');
         }
-        $('#singleMeasurements').append(' <li class="divider"></li>'+
-             '  <li>'+
-                  ' <a class="text-center" href="/home/measurements">'+
+        $('#singleMeasurements').append(' <li class="divider"></li>' +
+             '  <li>' +
+                  ' <a class="text-center" href="/home/measurements">' +
                     '   <strong>See All Measurements</strong>' +
-                     '  <i class="fa fa-angle-right"></i>'+
-                 '  </a>'+
-              ' </li>' )
+                     '  <i class="fa fa-angle-right"></i>' +
+                 '  </a>' +
+              ' </li>')
     });
 
     var settings = {
         "async": true,
         "url": "http://etrash.info/api/measurement/read.php",
         "method": "POST",
-        "data": '{ "sid" :"'+response+'"}'
+        "data": '{ "sid" :"' + response + '"}'
     }
 
     $.ajax(settings).done(function (response) {
-        // var mydata =  response.records; 
+        // var mydata =  response.records;
         localStorage.setItem("level", JSON.stringify(response.records));
     });
     //alert(JSON.stringify(response));
 
 
-   
+
 
 </script>
