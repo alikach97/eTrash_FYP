@@ -219,24 +219,12 @@
 
 
 <script>
-    var settings = {
-        "async": true,
-        "url": "http://etrash.info/api/sensor/read.php",
-        "method": "POST",
-        "data": '{ "uid" :' + sessionStorage['uid'] + '}'
-    }
-
-    $.ajax(settings).done(function (response) {
-        //alert(JSON.stringify(response));
-        //var sensor = response;
-        localStorage.setItem("Sensor", JSON.stringify(response));
-    });
 
     var settings = {
         "async": true,
         "url": "http://etrash.info/api/measurement/readAll.php",
         "method": "POST",
-        "data": '{ "uid" :' + user.uid + '}'
+        "data": '{ "uid" :' + sessionStorage['uid']+ '}'
     }
 
     $.ajax(settings).done(function (response) {
@@ -280,7 +268,7 @@
               ' </li>')
     });
 
-    var settings = {
+ /*   var settings = {
         "async": true,
         "url": "http://etrash.info/api/measurement/read.php",
         "method": "POST",
@@ -294,6 +282,6 @@
     //alert(JSON.stringify(response));
 
 
-
+*/
 
 </script>
