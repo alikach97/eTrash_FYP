@@ -306,7 +306,7 @@
 
 <script>
     var d = new Date();
-    var yest = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + (d.getDate() - 1);
+    var yest = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + (d.getDate() - 3);
     var tod = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
     yest = yest.toString();
     tod = tod.toString();
@@ -321,7 +321,7 @@
     $.ajax(settings).done(function (response) {
         //alert(JSON.stringify(response));
         var articles = response.articles;
-        for (var i = 0; (i < 8) && (i < articles.length) ; i++) {
+        for (var i = 0; (i < 10) && (i < articles.length) ; i++) {
             if (i % 2 == 0) {
                 $('#news').append(' <li>' +
                                     ' <div class="timeline-panel"> ' +
