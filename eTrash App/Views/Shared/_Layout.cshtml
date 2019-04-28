@@ -31,12 +31,13 @@
         @Html.Action("Index", "Navbar")
         
         <div id="page-wrapper">
-            @RenderBody()          
+            @RenderBody()      
         </div>
         <!-- /#page-wrapper -->
     </div>
-    <!-- /#wrapper -->
-         
+    <!-- /#wrapper -->  
+
+    <footer><p>Copyrights &copy; @DateTime.Now.Year</p></footer>
     <!-- DataTables JavaScript -->
     <script src="@Url.Content("~/bower_components/raphael/raphael-min.js")"></script>
  

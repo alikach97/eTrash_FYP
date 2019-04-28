@@ -17,5 +17,9 @@ namespace eTrash_App.Controllers
         {
             return View("Login");
         }
+        public ActionResult c_login()
+        {
+            return View("Login2");
+        }
     }
 }

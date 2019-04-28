@@ -6,13 +6,12 @@ using System.Web.Mvc;
 
 namespace eTrash_App.Controllers
 {
-    public class HomeController : Controller
+    public class Home2Controller : Controller
     {
         public ActionResult Index()
-        { 
-            //if condition for company login or user login
-            return View(); // user login by default
-            //return View("Index2"); //company login
+        {
+            
+            return View();
         }
 
         public ActionResult Measurements()
@@ -33,7 +32,7 @@ namespace eTrash_App.Controllers
         public ActionResult Feedback()
         {
             return View("Feedback");
-        } 
+        }
 
         public ActionResult FlotCharts()
         {
@@ -49,7 +48,7 @@ namespace eTrash_App.Controllers
         {
             return View("Tables");
         }
-       
+
 
         public ActionResult Forms()
         {
@@ -71,6 +70,6 @@ namespace eTrash_App.Controllers
             return View("Notifications");
         }
 
-      
+
     }
 }
